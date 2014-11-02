@@ -15,6 +15,8 @@ class YourCoolMsiDataProvider(AbstractMsiDataProvider):
                 rates.append(rate)
         rates = list( reversed(rates) )
         rates = rates[:100]
+        # crazy fking important - normalization
+        rates = map(lambda el: el / max(rates), rates)
 
         self.previousRatesCountUsedForPrediction = 5
         self.fineMachineLearningDataset = []
@@ -52,10 +54,10 @@ def thingsYouDoWithTheNeuralNetwork(network, datasetForTraining, datasetForTest)
             executor.execute()
 
         thingsToPrint = {
-            "epochs": epochsToTest,
+            "variable": epochsToTest,
             "minError": executor.getMinError(),
             "maxError": executor.getMaxError(),
             "averageError": executor.getAverageError()
         }
-        print "{epochs},{minError},{maxError},{averageError}".format(**thingsToPrint)
+        print "{variable},{minError},{maxError},{averageError}".format(**thingsToPrint)
 

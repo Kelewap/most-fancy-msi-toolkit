@@ -1,8 +1,10 @@
 Uruchom 'python testLearnXOR.py', ażeby sprawdzić, czy pybrain jest u Ciebie ślicznie zainstalowany i możesz nauczać sieci neuronowe.
+Uruchomienie 'python learn.py' uruchamia przykład.
 
 Modyfikować należy jedynie moduł my_stuff:
  - należy zaimplementować klasę YourCoolMsiDataProvider
     * skombinować sobie własny dataset
+    * wybrać rozmiar warstwy ukrytej sieci
     * konstruktor wczytuje dane dla sieci neuronowej
     * przykład przewiduje kurs USD względem PLN na podstawie kursów z poprzednich 5 dni
     * getTrainingData itp. powinno zwracać dataset w analogicznej postaci jak w przykładzie:
