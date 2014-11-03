@@ -1,4 +1,5 @@
 from abc import ABCMeta, abstractmethod
+from pybrain.supervised import BackpropTrainer
 
 
 class AbstractMsiDataProvider(object):
@@ -26,17 +27,21 @@ class AbstractMsiDataProvider(object):
 
 
 class BatchTrainingExecutor(object):
-    def __init__(self, trainer, datasetForTraining, datasetForTest, epochs):
-        self.trainer = trainer
+    def __init__(self, networkFactoryMethod, datasetForTraining, datasetForTest, epochs, learningrate, momentum):
+        self.networkFactoryMethod = networkFactoryMethod
         self.datasetForTraining = datasetForTraining
         self.datasetForTest = datasetForTest
         self.epochs = epochs
+        self.learningrate = learningrate
+        self.momentum = momentum
 
         self.collectedErrors = []
 
     def execute(self):
-        self.trainer.trainOnDataset(self.datasetForTraining, self.epochs)
-        averageError = self.trainer.testOnData(self.datasetForTest)
+        network = self.networkFactoryMethod()
+        trainer = BackpropTrainer(network, learningrate = self.learningrate, momentum = self.momentum)
+        trainer.trainOnDataset(self.datasetForTraining, self.epochs)
+        averageError = trainer.testOnData(self.datasetForTest)
         self.collectedErrors.append(averageError)
 
         return averageError

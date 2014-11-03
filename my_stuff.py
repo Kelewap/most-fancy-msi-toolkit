@@ -42,12 +42,11 @@ class YourCoolMsiDataProvider(AbstractMsiDataProvider):
         return 4
 
 
-def thingsYouDoWithTheNeuralNetwork(network, datasetForTraining, datasetForTest):
+def thingsYouDoWithTheNeuralNetwork(networkFactoryMethod, datasetForTraining, datasetForTest):
     # write your fancy scientific experiment below
 
     for epochsToTest in range(100, 1001, 100):
-        trainer = BackpropTrainer(network, learningrate=0.01, momentum=0.98)
-        executor = BatchTrainingExecutor(trainer, datasetForTraining, datasetForTest, epochs=epochsToTest)
+        executor = BatchTrainingExecutor(networkFactoryMethod, datasetForTraining, datasetForTest, epochs=epochsToTest, learningrate=0.01, momentum=0.98)
         print >>sys.stderr, "executing for epochs", epochsToTest
         for i in xrange(6):
             print >>sys.stderr, "executing", i + 1, "iteration"

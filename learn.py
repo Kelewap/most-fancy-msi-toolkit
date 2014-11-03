@@ -19,6 +19,8 @@ datasetForTest = SupervisedDataSet(entryDimension, resultDimension)
 for entry, expectedResult in testData:
     datasetForTest.addSample(entry, expectedResult)
 
-network = buildNetwork(entryDimension, hiddenLayerDimension, resultDimension, recurrent=True)
+def networkFactoryMethod():
+    return buildNetwork(entryDimension, hiddenLayerDimension, resultDimension, recurrent=True)
 
-thingsYouDoWithTheNeuralNetwork(network, datasetForTraining, datasetForTest)
+thingsYouDoWithTheNeuralNetwork(networkFactoryMethod, datasetForTraining, datasetForTest)
+
