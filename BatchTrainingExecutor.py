@@ -53,6 +53,23 @@ class BatchTrainingExecutor(object):
         averageError = trainer.testOnData(self.datasetForTest)
         self.collectedErrors.append(averageError)
 
+        results = []
+
+        for x in self.allTrainingDataset[0:self.dataProvider.getInputDimension()]:
+            print x
+            results.append(x)
+
+        for i in range(0, len(self.allTrainingDataset) - self.dataProvider.getInputDimension() - 1, 1):
+            print 'current index of element predicted: ' + str(i + self.dataProvider.getInputDimension() + 1)
+            print "using elements for prediction:"
+            print self.allTrainingDataset[i:i + self.dataProvider.getInputDimension()]
+            # print results[-self.dataProvider.getInputDimension():]
+            x = network.activate(self.allTrainingDataset[i:i + self.dataProvider.getInputDimension()])
+            print 'should be : ' + str(self.allTrainingDataset[i + self.dataProvider.getInputDimension() + 1])
+            print 'got : ' + str(x)
+            results.append(str(x[0]))
+
+        self.results = results
         return averageError
 
     def predictNextElements(self, elementsToPredict):
@@ -109,18 +126,17 @@ class BatchTrainingExecutor(object):
         print results
         return results
 
-    def saveResultsToFiles(self):
+    def savePredictedResultsToFiles(self):
         f = open('C:\\home\\aaaaStudia\\Semestr_VII\\MSI\\Lab2\\zad\\predictions_' + str(self.epochs) + '.data', 'w')
         for line in self.collectedResults[0]:
-        # for line in self.getMeanResults():
+            # for line in self.getMeanResults():
             print line
             f.write(str(line) + "\n")
 
-            # def getMeNextStock(self, startIndex):
-            #     network = self.networkFactoryMethod()
-            #     trainer = BackpropTrainer(network, learningrate=self.learningrate, momentum=self.momentum)
-            #     trainer.trainOnDataset(self.datasetForTraining, self.epochs)
-            #     x = network.activate()
-
-
+    def saveToFiles(self):
+        f = open('C:\\home\\aaaaStudia\\Semestr_VII\\MSI\\Lab2\\zad\\my_' + str(self.epochs) + '.data', 'w')
+        for line in self.results:
+            # for line in self.getMeanResults():
+            print line
+            f.write(str(line) + "\n")
 
