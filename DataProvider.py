@@ -58,20 +58,20 @@ def thingsYouDoWithTheNeuralNetwork(networkFactoryMethod, datasetForTraining, da
     # epochsToTest = 10
     for epochsToTest in range(20, 21, 20):
         executor = BatchTrainingExecutor(networkFactoryMethod, datasetForTraining, datasetForTest, allTraingDataset,
-                                         dataProvider, epochs=epochsToTest, learningrate=0.01, momentum=0.08)
+                                         dataProvider, epochs=epochsToTest, learningrate=0.003, momentum=0.08)
         print >> sys.stderr, "executing for epochs", epochsToTest
         for i in xrange(6):
             print >> sys.stderr, "executing", i + 1, "iteration"
             # executor.execute()
             executor.predictNextElements(20)
 
-            # thingsToPrint = {
-            #     "variable": epochsToTest,
-            #     "minError": executor.getMinError(),
-            #     "maxError": executor.getMaxError(),
-            #     "averageError": executor.getAverageError()
-            # }
-            # print "{variable},{minError},{maxError},{averageError}".format(**thingsToPrint)
+        # thingsToPrint = {
+        #     "variable": epochsToTest,
+        #     "minError": executor.getMinError(),
+        #     "maxError": executor.getMaxError(),
+        #     "averageError": executor.getAverageError()
+        # }
+        # print "{variable},{minError},{maxError},{averageError}".format(**thingsToPrint)
         executor.getMeanResults()
         executor.saveResultsToFiles()
 

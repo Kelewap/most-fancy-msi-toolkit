@@ -93,20 +93,26 @@ class BatchTrainingExecutor(object):
 
     def getMeanResults(self):
         results = []
+        print 'len of single collected result list'
+        print len(self.collectedResults[0])
         for i in range(0, len(self.collectedResults[0]), 1):
             p = []
             for row in self.collectedResults:
                 p.append(row[i])
 
-            results.append(float(sum(p)) / len(p))
+            print sum(p)
+            print len(p)
+            mean = sum(p) / len(p)
+            results.append(mean)
 
+        print ' Got mean values!!!!!!!!!!!!!!!!!!1'
         print results
         return results
 
     def saveResultsToFiles(self):
         f = open('C:\\home\\aaaaStudia\\Semestr_VII\\MSI\\Lab2\\zad\\predictions_' + str(self.epochs) + '.data', 'w')
-        # for line in self.collectedResults[0]:
-        for line in self.getMeanResults():
+        for line in self.collectedResults[0]:
+        # for line in self.getMeanResults():
             print line
             f.write(str(line) + "\n")
 
