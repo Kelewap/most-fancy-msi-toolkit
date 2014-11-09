@@ -1,4 +1,4 @@
-from msi import AbstractMsiDataProvider
+from BatchTrainingExecutor import AbstractMsiDataProvider
 
 
 class YourCoolMsiDataProvider(AbstractMsiDataProvider):

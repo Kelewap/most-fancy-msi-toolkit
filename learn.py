@@ -1,7 +1,7 @@
 from pybrain.datasets import SupervisedDataSet
 from pybrain.tools.shortcuts import buildNetwork
 
-from my_stuff import YourCoolMsiDataProvider, thingsYouDoWithTheNeuralNetwork
+from DataProvider import YourCoolMsiDataProvider, thingsYouDoWithTheNeuralNetwork
 
 
 myDataProvider = YourCoolMsiDataProvider()
@@ -10,6 +10,7 @@ resultDimension = myDataProvider.getOutputDimension()
 trainingData = myDataProvider.getTrainingData()
 testData = myDataProvider.getTestData()
 hiddenLayerDimension = myDataProvider.getNetworkHiddenLayerDimension()
+allTraingDataset = myDataProvider.getAllLearningDataset()
 
 datasetForTraining = SupervisedDataSet(entryDimension, resultDimension)
 for entry, expectedResult in trainingData:
@@ -19,8 +20,11 @@ datasetForTest = SupervisedDataSet(entryDimension, resultDimension)
 for entry, expectedResult in testData:
     datasetForTest.addSample(entry, expectedResult)
 
-def networkFactoryMethod():
-    return buildNetwork(entryDimension, hiddenLayerDimension, resultDimension, recurrent=True)
 
-thingsYouDoWithTheNeuralNetwork(networkFactoryMethod, datasetForTraining, datasetForTest)
+def networkFactoryMethod():
+    return buildNetwork(entryDimension, hiddenLayerDimension, resultDimension, recurrent=True, bias=True)
+
+
+thingsYouDoWithTheNeuralNetwork(networkFactoryMethod, datasetForTraining, datasetForTest, allTraingDataset,
+                                myDataProvider)
 
